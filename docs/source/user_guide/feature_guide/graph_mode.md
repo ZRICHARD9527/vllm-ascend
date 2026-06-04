@@ -162,7 +162,7 @@ vllm serve Qwen/Qwen2-7B-Instruct \
 
 ### Static kernel compilation
 
-Static kernel compilation is an **optional** feature that pre-compiles operator binaries with fixed shapes at compile time, reducing runtime overhead for networks with static or near-static shapes. It is **disabled by default** and must be explicitly enabled.
+Static kernel compilation is a feature that pre-compiles operator binaries with fixed shapes at compile time, reducing runtime overhead for networks with static or near-static shapes. It is **enabled by default** when `enable_npugraph_ex` is True, and can be explicitly disabled by setting `enable_static_kernel` to `False`.
 
 ```{note}
 Enabling static kernel triggers a compilation pass during the graph capture phase at service startup. This may add **several minutes to tens of minutes** to the startup time depending on the number of operators to compile and model complexity. Once completed, subsequent request processing is not affected.

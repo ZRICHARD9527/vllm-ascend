@@ -463,6 +463,7 @@ class NPUPlatform(Platform):
         if compilation_config.cudagraph_mode == CUDAGraphMode.NONE:
             compilation_config.mode = CompilationMode.NONE
             ascend_config.ascend_compilation_config.enable_npugraph_ex = False
+            ascend_config.ascend_compilation_config.enable_static_kernel = False
         elif compilation_config.cudagraph_mode.requires_piecewise_compilation():
             # Our is_cuda_alike is False so we cannot reuse the assertion of upstream
             assert compilation_config.mode == CompilationMode.VLLM_COMPILE, (
@@ -484,6 +485,7 @@ class NPUPlatform(Platform):
             compilation_config.splitting_ops.extend(["vllm::mla_forward"])
             update_aclgraph_sizes(vllm_config)
             ascend_config.ascend_compilation_config.enable_npugraph_ex = False
+            ascend_config.ascend_compilation_config.enable_static_kernel = False
         elif compilation_config.cudagraph_mode.has_full_cudagraphs():
             # We don't want to have our FX graph split for the sake of static kernel feature,
             # because it will compile multiple times, so we set splitting_ops to empty manually.
@@ -495,6 +497,7 @@ class NPUPlatform(Platform):
             compilation_config.cudagraph_mode = CUDAGraphMode.NONE
             compilation_config.mode = CompilationMode.NONE
             ascend_config.ascend_compilation_config.enable_npugraph_ex = False
+            ascend_config.ascend_compilation_config.enable_static_kernel = False
 
         # TODO: Remove this check when ACL Graph supports ASCEND_LAUNCH_BLOCKING=1
         # Then, we will have to discuss the error handling strategy and user experience

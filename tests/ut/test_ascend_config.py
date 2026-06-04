@@ -77,7 +77,7 @@ class TestAscendConfig(TestBase):
         self.assertFalse(ascend_compilation_config.fuse_norm_quant)
         self.assertFalse(ascend_config.enable_kv_nz)
         self.assertTrue(ascend_compilation_config.enable_npugraph_ex)
-        self.assertFalse(ascend_compilation_config.enable_static_kernel)
+        self.assertTrue(ascend_compilation_config.enable_static_kernel)
 
         ascend_fusion_config = ascend_config.ascend_fusion_config
         self.assertFalse(ascend_fusion_config.fusion_ops_gmmswigluquant)
